@@ -37,6 +37,29 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
+router.put("/:id", auth, async (req, res) => {
+  const { title, body } = req.body;
+  const { id } = req.params;
+
+  try {
+    const note = await Note.findById(id);
+
+    if (!isOwner(req.user, note)) {
+      return res.status(403).json({ error: "Permission denied" });
+    }
+
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: id },
+      { $set: { title, body } },
+      { upsert: true, new: true }
+    );
+
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    res.status(500).json({ error: "Problem to update a note" });
+  }
+});
+
 function isOwner(user, note) {
   return user._id.equals(note.author._id);
 }

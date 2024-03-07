@@ -13,7 +13,7 @@ A NoteAPI é uma API projetada para ser integrada a um sistema React de cadastra
 
 ## Segurança das Senhas
 
-As senhas dos usuários são armazenadas de forma segura na NoteAPI. Utilizamos a biblioteca bcrypt para transformar as senhas em hashes antes de armazená-las no banco de dados. Isso ajuda a garantir a segurança dos dados dos usuários, protegendo suas informações confidenciais contra acesso não autorizado.
+As senhas dos usuários são armazenadas de forma segura na NoteAPI. Utilizei a biblioteca bcrypt para transformar as senhas em hashes antes de armazená-las no banco de dados. Isso ajuda a garantir a segurança dos dados dos usuários, protegendo suas informações confidenciais contra acesso não autorizado.
 
 ## Visão Geral
 
@@ -21,18 +21,51 @@ A API é uma aplicação Node.js desenvolvida com o framework Express.js. Ela at
 
 ## Rotas
 
-Aqui estão as principais rotas disponíveis na API:
+### Users
 
-- **GET /api/recurso**: Retorna todos os recursos.
-- **GET /api/recurso/:id**: Retorna um recurso específico com o ID fornecido.
-- **POST /api/recurso**: Cria um novo recurso.
-- **PUT /api/recurso/:id**: Atualiza um recurso existente com o ID fornecido.
-- **DELETE /api/recurso/:id**: Remove um recurso com o ID fornecido.
+- **POST /users/register**: Rota para cadastrar um novo usuário. Recebe o `name`, `email` e `password` do usuário.
 
-## Contribuindo
+  ```json
+  {
+    "name": "Teste Post",
+    "email": "testepost@gmail.com",
+    "password": "123456789"
+  }
+  ```
 
-Se você gostaria de contribuir com este projeto, fique à vontade para abrir uma issue ou enviar um pull request.
+- **POST /users/login**: Rota para fazer login do usuário. Recebe o `email` e `password` do usuário.
 
-## Licença
+  ```json
+  {
+    "email": "testepost@gmail.com",
+    "password": "123456789"
+  }
+  ```
 
-Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
+### Notes
+
+- **GET /notes**: Retorna todas as notas cadastradas.
+- **GET /notes/:id**: Retorna uma nota específica com o ID fornecido.
+- **POST /notes**: Rota para cadastrar uma nova nota. Recebe o `title` e `body` da nota no corpo da requisição.
+
+  ```json
+  {
+    "title": "test",
+    "body": "test body"
+  }
+  ```
+
+- **PUT /notes/:id**: Atualiza uma nota existente com o ID fornecido.
+
+  ```json
+  {
+    "title": "test",
+    "body": "test body"
+  }
+  ```
+
+- **DELETE /notes/:id**: Remove uma nota com o ID fornecido.
+
+## Requer Autenticação
+
+Para acessar as rotas destinadas as notas, é necessário incluir o token de acesso (`x-access-token`) nos headers da requisição. Este token é gerado no momento do login do usuário e deve ser enviado em todas as requisições subsequentes que exigem autenticação.
