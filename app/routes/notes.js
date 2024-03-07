@@ -18,7 +18,7 @@ router.post("/", auth, async (req, res) => {
   try {
     const note = new Note({ title, body, author: req.user._id });
     await note.save();
-    res.status(200).json(note);
+    res.status(201).json(note);
   } catch (error) {
     res.status(500).json({ error: "Problem to create a new note" });
   }
@@ -57,6 +57,24 @@ router.put("/:id", auth, async (req, res) => {
     res.status(200).json(updatedNote);
   } catch (error) {
     res.status(500).json({ error: "Problem to update a note" });
+  }
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const note = await Note.findById(id);
+
+    if (!isOwner(req.user, note)) {
+      return res.status(403).json({ error: "Permission denied" });
+    }
+
+    await note.deleteOne();
+
+    res.status(204).json({ message: "A note has been deleted" });
+  } catch (error) {
+    res.status(500).json({ error: "Problem to delete a note" });
   }
 });
 
