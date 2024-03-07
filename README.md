@@ -2,7 +2,7 @@
 
 ## Descrição
 
-A NoteAPI é uma API projetada para ser integrada a um sistema React, funcionando como o backend dessa aplicação. Ela permite a gestão de dados de forma eficiente e segura, fornecendo os serviços necessários para a comunicação entre a interface do usuário e o banco de dados. É uma escolha ideal para quem está começando a desenvolver APIs em Express.
+A NoteAPI é uma API projetada para ser integrada a um sistema React de cadastramento de notas diárias, funcionando como o backend dessa aplicação. Ela permite a gestão de dados de forma eficiente e segura, fornecendo os serviços necessários para a comunicação entre a interface do usuário e o banco de dados.
 
 ## Tecnologias Utilizadas
 
