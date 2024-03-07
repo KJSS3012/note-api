@@ -3,6 +3,21 @@ const router = express.Router();
 const Note = require("../models/Note");
 const auth = require("../middlewares/auth");
 
+router.get("/search", auth, async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    const notes = await Note.find({
+      author: req.user._id,
+      title: { $regex: query, $options: "i" },
+    });
+
+    res.status(200).json(notes);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
 router.get("/", auth, async (req, res) => {
   try {
     const notes = await Note.find({ author: req.user._id });

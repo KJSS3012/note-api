@@ -65,6 +65,7 @@ A API é uma aplicação Node.js desenvolvida com o framework Express.js. Ela at
   ```
 
 - **DELETE /notes/:id**: Remove uma nota com o ID fornecido.
+- **GET /notes/search**: Rota para pesquisar notas por título. Recebe o parâmetro de consulta `query` contendo a substring a ser pesquisada no título da nota.
 
 ## Requer Autenticação
 
